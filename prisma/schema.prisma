@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -9,6 +10,26 @@ datasource db {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String
+  id         Int         @id @default(autoincrement())
+  name       String
+  therapists Therapist[]
+}
+
+model Therapist {
+  id           Int    @id @default(autoincrement())
+  name         String @db.Text
+  userId       String
+  userName     String
+  src          String
+  description  String
+  instructions String @db.Text
+  seed         String @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@index([categoryId])
 }
