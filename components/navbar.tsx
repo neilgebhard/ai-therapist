@@ -4,7 +4,7 @@ import { Roboto_Mono } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import { BatteryCharging } from 'lucide-react'
-import { ModeToggle } from './dark-mode'
+import { ModeToggle } from './mode-toggle'
 
 const roboto = Roboto_Mono({ subsets: ['latin'], weight: '700' })
 
