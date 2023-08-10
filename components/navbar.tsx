@@ -25,7 +25,7 @@ const Navbar = () => {
               Get Ad-Free
             </Button>
             <ModeToggle />
-            <UserButton />
+            <UserButton afterSignOutUrl='/' />
           </div>
         </div>
       </Container>

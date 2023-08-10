@@ -9,14 +9,8 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Category {
-  id         Int         @id @default(autoincrement())
-  name       String
-  therapists Therapist[]
-}
-
 model Therapist {
-  id           Int    @id @default(autoincrement())
+  id           String @id @default(uuid())
   name         String @db.Text
   userId       String
   userName     String
@@ -25,12 +19,28 @@ model Therapist {
   instructions String @db.Text
   seed         String @db.Text
 
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Message   Message[]
+
+  @@fulltext([name])
+}
+
+enum Role {
+  system
+  user
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  role      Role
+  content   String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  therapistId String
+  userId      String
+  therapist   Therapist @relation(fields: [therapistId], references: [id])
 
-  @@index([categoryId])
-  @@fulltext([name])
+  @@index([therapistId])
 }
