@@ -32,4 +32,5 @@ model Therapist {
   categoryId Int
 
   @@index([categoryId])
+  @@fulltext([name])
 }
