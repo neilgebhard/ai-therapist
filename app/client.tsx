@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useCompletion } from 'ai/react'
 import { Message, Therapist } from '@prisma/client'
 import ChatForm from '@/components/chat-form'
+import ChatMessages from '@/components/chat-messages'
 
 interface Props {
   therapist: Therapist & {
@@ -42,9 +43,11 @@ const Client = ({ therapist }: Props) => {
 
   return (
     <div className='flex flex-col gap-2 pt-[74px] h-full'>
-      <pre className='flex-1 bg-teal-800 rounded'>
-        {JSON.stringify(therapist, null, 2)}
-      </pre>
+      <ChatMessages
+        isLoading={isLoading}
+        messages={messages}
+        therapist={therapist}
+      />
       <ChatForm
         isLoading={isLoading}
         handleInputChange={handleInputChange}
