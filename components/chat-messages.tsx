@@ -1,11 +1,11 @@
 'use client'
 
 import { Message, Therapist } from '@prisma/client'
-import ChatMessage from './chat-message'
+import ChatMessage, { MessageProps } from './chat-message'
 
 interface Props {
   isLoading: boolean
-  messages: Message[]
+  messages: MessageProps[]
   therapist: Therapist & {
     messages: Message[]
   }

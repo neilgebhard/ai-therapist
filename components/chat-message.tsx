@@ -5,13 +5,13 @@ import { useTheme } from 'next-themes'
 import { RiseLoader } from 'react-spinners'
 import CopyButton from './copy-button'
 
-export interface Props {
+export interface MessageProps {
   role: 'system' | 'user'
-  isLoading: boolean
   content: string
+  isLoading?: boolean
 }
 
-const ChatMessage = ({ role, content, isLoading }: Props) => {
+const ChatMessage = ({ role, content, isLoading }: MessageProps) => {
   const { theme } = useTheme()
 
   return (
