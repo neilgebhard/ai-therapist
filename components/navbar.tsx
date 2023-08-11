@@ -11,7 +11,7 @@ const roboto = Roboto_Mono({ subsets: ['latin'], weight: '700' })
 
 const Navbar = () => {
   return (
-    <nav className='py-2 border-b'>
+    <nav className='py-2 border-b fixed w-full'>
       <Container>
         <div className='flex justify-between items-center gap-2'>
           <Link href='/'>

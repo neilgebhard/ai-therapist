@@ -10,20 +10,20 @@ datasource db {
 }
 
 model Therapist {
-  id           String @id @default(uuid())
-  name         String @db.Text
-  userId       String
-  userName     String
-  src          String
-  description  String
-  instructions String @db.Text
-  seed         String @db.Text
+  id     String @id @default(uuid())
+  // name   String @db.Text
+  userId String @unique
+  // userName     String
+  // src          String
+  // description  String
+  // instructions String @db.Text
+  // seed         String @db.Text
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Message   Message[]
+  messages  Message[]
 
-  @@fulltext([name])
+  // @@fulltext([name])
 }
 
 enum Role {
