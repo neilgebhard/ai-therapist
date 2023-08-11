@@ -11,11 +11,16 @@ const roboto = Roboto_Mono({ subsets: ['latin'], weight: '700' })
 
 const Navbar = () => {
   return (
-    <nav className='py-2 border-b fixed w-full'>
+    <nav className='py-2 border-b border-b-primary/10 fixed w-full'>
       <Container>
         <div className='flex justify-between items-center gap-2'>
           <Link href='/'>
-            <h1 className={cn('font-bold text-2xl', roboto.className)}>
+            <h1
+              className={cn(
+                'font-bold text-2xl text-primary/80',
+                roboto.className
+              )}
+            >
               AI Therapist
             </h1>
           </Link>
