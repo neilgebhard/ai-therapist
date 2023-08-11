@@ -18,7 +18,7 @@ const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
       <ChatMessage
         //   key={message.id}
         //   role={message.role}
-        role='system'
+        role='user'
         content={
           'Hello, I am your personal therapist. How may I help you today?'
         }
