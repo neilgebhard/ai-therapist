@@ -7,7 +7,7 @@ import CopyButton from './copy-button'
 
 export interface ChatMessageProps {
   role: 'system' | 'user'
-  content?: string
+  content: string
   isLoading?: boolean
 }
 

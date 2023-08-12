@@ -17,7 +17,7 @@ const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+  }, [messages.length])
 
   return (
     <div className='flex-1 overflow-y-auto space-y-4'>
@@ -28,22 +28,10 @@ const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
         }
         isLoading={false}
       />
-      <ChatMessage
-        role='user'
-        content={
-          'Hello, I am your personal therapist. How may I help you today?'
-        }
-        isLoading={false}
-      />
       {messages.map((message, i) => (
-        <ChatMessage
-          key={i}
-          role={message.role}
-          content={message.content}
-          isLoading
-        />
+        <ChatMessage key={i} role={message.role} content={message.content} />
       ))}
-      {isLoading && <ChatMessage role='system' isLoading={isLoading} />}
+      {isLoading && <ChatMessage role='system' content='' isLoading />}
       <div ref={scrollRef} />
     </div>
   )

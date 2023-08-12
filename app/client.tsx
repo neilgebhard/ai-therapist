@@ -22,7 +22,7 @@ const Client = ({ therapist }: Props) => {
 
   const { input, isLoading, handleInputChange, handleSubmit, setInput } =
     useCompletion({
-      api: `/api/therapist/${therapist.id}`,
+      api: `/api/therapist`,
       onFinish(_, completion) {
         const systemMessage: ChatMessageProps = {
           role: 'system',
@@ -40,7 +40,6 @@ const Client = ({ therapist }: Props) => {
       content: input,
     }
     setMessages((messages) => [...messages, userMessage])
-
     handleSubmit(e)
   }
 
