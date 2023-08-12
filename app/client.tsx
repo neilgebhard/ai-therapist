@@ -6,7 +6,7 @@ import { useCompletion } from 'ai/react'
 import { Message, Therapist } from '@prisma/client'
 import ChatForm from '@/components/chat-form'
 import ChatMessages from '@/components/chat-messages'
-import { MessageProps } from '@/components/chat-message'
+import { ChatMessageProps } from '@/components/chat-message'
 
 interface Props {
   therapist: Therapist & {
@@ -16,13 +16,15 @@ interface Props {
 
 const Client = ({ therapist }: Props) => {
   const router = useRouter()
-  const [messages, setMessages] = useState<MessageProps[]>(therapist.messages)
+  const [messages, setMessages] = useState<ChatMessageProps[]>(
+    therapist.messages
+  )
 
   const { input, isLoading, handleInputChange, handleSubmit, setInput } =
     useCompletion({
       api: `/api/therapist/${therapist.id}`,
       onFinish(_, completion) {
-        const systemMessage: MessageProps = {
+        const systemMessage: ChatMessageProps = {
           role: 'system',
           content: completion,
         }
@@ -33,7 +35,7 @@ const Client = ({ therapist }: Props) => {
     })
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const userMessage: MessageProps = {
+    const userMessage: ChatMessageProps = {
       role: 'user',
       content: input,
     }

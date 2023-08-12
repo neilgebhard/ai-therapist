@@ -1,11 +1,11 @@
 'use client'
 
 import { Message, Therapist } from '@prisma/client'
-import ChatMessage, { MessageProps } from './chat-message'
+import ChatMessage, { ChatMessageProps } from './chat-message'
 
 interface Props {
   isLoading: boolean
-  messages: MessageProps[]
+  messages: ChatMessageProps[]
   therapist: Therapist & {
     messages: Message[]
   }
@@ -14,16 +14,6 @@ interface Props {
 const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
   return (
     <div className='flex-1 overflow-y-auto space-y-4'>
-      {/* {messages.map((message) => {
-        return (
-          <ChatMessage
-            key={message.id}
-            role={message.role}
-            content={messages.content}
-            isLoading={isLoading}
-          />
-        )
-      })} */}
       <ChatMessage
         role='system'
         content={
@@ -38,6 +28,15 @@ const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
         }
         isLoading={false}
       />
+      {messages.map((message, i) => (
+        <ChatMessage
+          key={i}
+          role={message.role}
+          content={message.content}
+          isLoading
+        />
+      ))}
+      {isLoading && <ChatMessage role='system' isLoading={isLoading} />}
     </div>
   )
 }
