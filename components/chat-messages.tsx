@@ -2,6 +2,7 @@
 
 import { Message, Therapist } from '@prisma/client'
 import ChatMessage, { ChatMessageProps } from './chat-message'
+import { useEffect, useRef } from 'react'
 
 interface Props {
   isLoading: boolean
@@ -12,6 +13,12 @@ interface Props {
 }
 
 const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
   return (
     <div className='flex-1 overflow-y-auto space-y-4'>
       <ChatMessage
@@ -37,6 +44,7 @@ const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
         />
       ))}
       {isLoading && <ChatMessage role='system' isLoading={isLoading} />}
+      <div ref={scrollRef} />
     </div>
   )
 }
