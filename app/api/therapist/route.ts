@@ -110,7 +110,7 @@ export async function POST(request: Request) {
 
         ${relevantHistory}
 
-        ${recentChatHistory}\n`
+        ${recentChatHistory}\nYou:`
         )
         .catch(console.error)
     )
