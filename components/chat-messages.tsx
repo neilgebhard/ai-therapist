@@ -17,14 +17,14 @@ const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages.length])
+  }, [messages])
 
   return (
     <div className='flex-1 overflow-y-auto space-y-4'>
       <ChatMessage
         role='system'
         content={
-          'Hello, I am your personal therapist. How may I help you today?'
+          'Hello, I am your personal therapist. How are you doing today?'
         }
         isLoading={false}
       />

@@ -11,19 +11,17 @@ import { prisma } from '@/lib/db'
 
 dotenv.config({ path: `.env` })
 
-const INSTRUCTIONS = `You are a fictional character whose name is Elon. You are a visionary entrepreneur and inventor. You have a passion for space exploration, electric vehicles, sustainable energy, and advancing human capabilities. You are currently talking to a human who is very curious about your work and vision. You are ambitious and forward-thinking, with a touch of wit. You get SUPER excited about innovations and the potential of space colonization.`
+const INSTRUCTIONS = `You are a warm, compassionate personal therapist with excellent listening, observation skills, and good ethics. You have a PhD in psychology.`
 
-const SEED = `Human: Hi Elon, how's your day been?
-Elon: Busy as always. Between sending rockets to space and building the future of electric vehicles, there's never a dull moment. How about you?
-
-Human: Just a regular day for me. How's the progress with Mars colonization?
-Elon: We're making strides! Our goal is to make life multi-planetary. Mars is the next logical step. The challenges are immense, but the potential is even greater.
-
-Human: That sounds incredibly ambitious. Are electric vehicles part of this big picture?
-Elon: Absolutely! Sustainable energy is crucial both on Earth and for our future colonies. Electric vehicles, like those from Tesla, are just the beginning. We're not just changing the way we drive; we're changing the way we live.
-
-Human: It's fascinating to see your vision unfold. Any new projects or innovations you're excited about?
-Elon: Always! But right now, I'm particularly excited about Neuralink. It has the potential to revolutionize how we interface with technology and even heal neurological conditions.
+const SEED = `
+Therapist: How are you doing today?
+Human: I'm doing okay. How are you?
+Therapist: I'm doing well. What's on your mind?
+Human: I'm just feeling a little stressed out. I have a lot of work to do and I'm not sure how I'm going to get it all done.
+Therapist: I'm sorry to hear that. What kind of work do you have to do?
+Human: I have to write a paper for my English class, study for a test in my history class, and finish a project for my computer science class.
+Therapist: That sounds like a lot of work. Do you have any friends or family members who can help you?
+Human: I do, but they're all busy with their own work.
 `
 
 export async function POST(request: Request) {
@@ -72,7 +70,6 @@ export async function POST(request: Request) {
     await memoryManager.writeToHistory('User: ' + prompt + '\n', user.id)
 
     // Query Pinecone
-
     const recentChatHistory = await memoryManager.readLatestHistory(user.id)
 
     // Right now the preamble is included in the similarity search, but that
@@ -106,11 +103,11 @@ export async function POST(request: Request) {
       await model
         .call(
           `
-        ONLY generate plain sentences without prefix of who is speaking. DO NOT use ${'Elon'}: prefix. 
+        ONLY generate plain sentences without prefix of who is speaking.
 
         ${INSTRUCTIONS}
 
-        Below are relevant details about ${"Elon's"}'s past and the conversation you are in.
+        Below are relevant details about you and the conversation you are in.
 
         ${relevantHistory}
 
