@@ -16,7 +16,7 @@ const ChatMessages = ({ isLoading, messages, therapist }: Props) => {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+    scrollRef.current?.scrollIntoView({ behavior: 'instant' })
   }, [messages])
 
   return (

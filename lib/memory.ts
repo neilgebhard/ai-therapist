@@ -13,6 +13,7 @@ export class MemoryManager {
     this.vectorDBClient = new PineconeClient()
   }
 
+  // initiate pinecone client
   public async init() {
     if (this.vectorDBClient instanceof PineconeClient) {
       await this.vectorDBClient.init({
@@ -22,6 +23,7 @@ export class MemoryManager {
     }
   }
 
+  // vector search for similar documents
   public async vectorSearch(
     recentChatHistory: string,
     therapistFileName: string
@@ -42,9 +44,11 @@ export class MemoryManager {
       .catch((err) => {
         console.log('WARNING: failed to get vector search results.', err)
       })
+
     return similarDocs
   }
 
+  // singleton pattern
   public static async getInstance(): Promise<MemoryManager> {
     if (!MemoryManager.instance) {
       MemoryManager.instance = new MemoryManager()
@@ -53,6 +57,7 @@ export class MemoryManager {
     return MemoryManager.instance
   }
 
+  // write to chat history
   public async writeToHistory(text: string, userId: string) {
     const key = userId
 
@@ -64,6 +69,7 @@ export class MemoryManager {
     return result
   }
 
+  // read latest chat history
   public async readLatestHistory(userId: string): Promise<string> {
     const key = userId
 
@@ -76,6 +82,7 @@ export class MemoryManager {
     return recentChats
   }
 
+  // seed chat history
   public async seedChatHistory(
     seedContent: String,
     delimiter: string = '\n',

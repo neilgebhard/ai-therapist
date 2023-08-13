@@ -1,10 +1,11 @@
 'use client'
 
-import { ChangeEvent, FormEvent } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useRef } from 'react'
 import { ChatRequestOptions } from 'ai'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { SendHorizonal } from 'lucide-react'
+import { ChatMessageProps } from './chat-message'
 
 interface Props {
   isLoading: boolean
@@ -14,9 +15,23 @@ interface Props {
     e: FormEvent<HTMLFormElement>,
     chatRequestOptions?: ChatRequestOptions
   ) => void
+  messages: ChatMessageProps[]
 }
 
-const ChatForm = ({ isLoading, handleInputChange, onSubmit, input }: Props) => {
+const ChatForm = ({
+  isLoading,
+  handleInputChange,
+  onSubmit,
+  input,
+  messages,
+}: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (!inputRef.current) throw Error('inputRef is not assigned')
+    inputRef.current.focus()
+  }, [messages])
+
   return (
     <form
       className='flex w-full items-center space-x-2 mb-3'
@@ -29,6 +44,7 @@ const ChatForm = ({ isLoading, handleInputChange, onSubmit, input }: Props) => {
         value={input}
         onChange={handleInputChange}
         placeholder='Send a message'
+        ref={inputRef}
       />
       <Button type='submit' variant='ghost' disabled={isLoading}>
         <SendHorizonal />

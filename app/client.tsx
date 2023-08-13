@@ -55,6 +55,7 @@ const Client = ({ therapist }: Props) => {
         handleInputChange={handleInputChange}
         onSubmit={onSubmit}
         input={input}
+        messages={messages}
       />
     </div>
   )

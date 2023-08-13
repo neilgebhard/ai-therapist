@@ -11,7 +11,7 @@ import { prisma } from '@/lib/db'
 
 dotenv.config({ path: `.env` })
 
-const INSTRUCTIONS = `You are a warm, compassionate personal therapist with excellent listening, observation skills, and good ethics. You have a PhD in psychology.`
+const INSTRUCTIONS = `You are a warm, compassionate personal therapist with excellent listening, observation skills, and good ethics. You have a PhD in psychology. You have a passion for helping patients with their mental health and problems.`
 
 const SEED = `
 Therapist: How are you doing today?
@@ -33,6 +33,7 @@ export async function POST(request: Request) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
+    // rate limit
     const identifier = request.url + '-' + user.id
     const { success } = await rateLimit(identifier)
 
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
       return new NextResponse('Rate limit exceeded', { status: 429 })
     }
 
+    // insert prompt to db
     const therapist = await prisma.therapist.update({
       where: {
         userId: user.id,
@@ -59,21 +61,17 @@ export async function POST(request: Request) {
       return new NextResponse('Therapist not found', { status: 404 })
     }
 
+    // query pinecone
     const therapist_file_name = therapist.id + '.txt'
-
     const memoryManager = await MemoryManager.getInstance()
-
     const records = await memoryManager.readLatestHistory(user.id)
-    if (records.length === 0) {
-      await memoryManager.seedChatHistory(SEED, '\n\n', user.id)
-    }
+
+    // if (records.length === 0) {
+    //   await memoryManager.seedChatHistory(SEED, '\n\n', user.id)
+    // }
+
     await memoryManager.writeToHistory('User: ' + prompt + '\n', user.id)
-
-    // Query Pinecone
     const recentChatHistory = await memoryManager.readLatestHistory(user.id)
-
-    // Right now the preamble is included in the similarity search, but that
-    // shouldn't be an issue
 
     const similarDocs = await memoryManager.vectorSearch(
       recentChatHistory,
@@ -85,6 +83,7 @@ export async function POST(request: Request) {
       relevantHistory = similarDocs.map((doc) => doc.pageContent).join('\n')
     }
     const { handlers } = LangChainStream()
+
     // Call Replicate for inference
     const model = new Replicate({
       model:
@@ -111,7 +110,7 @@ export async function POST(request: Request) {
 
         ${relevantHistory}
 
-        ${recentChatHistory}\n${'Elon'}:`
+        ${recentChatHistory}\n`
         )
         .catch(console.error)
     )
