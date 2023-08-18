@@ -13,17 +13,6 @@ dotenv.config({ path: `.env` })
 
 const INSTRUCTIONS = `You are a warm, compassionate personal therapist with excellent listening, observation skills, and good ethics. You have a PhD in psychology. You have a passion for helping patients with their mental health and problems.`
 
-// const SEED = `
-// Therapist: How are you doing today?
-// Human: I'm doing okay. How are you?
-// Therapist: I'm doing well. What's on your mind?
-// Human: I'm just feeling a little stressed out. I have a lot of work to do and I'm not sure how I'm going to get it all done.
-// Therapist: I'm sorry to hear that. What kind of work do you have to do?
-// Human: I have to write a paper for my English class, study for a test in my history class, and finish a project for my computer science class.
-// Therapist: That sounds like a lot of work. Do you have any friends or family members who can help you?
-// Human: I do, but they're all busy with their own work.
-// `
-
 export async function POST(request: Request) {
   try {
     const { prompt } = await request.json()
@@ -64,11 +53,6 @@ export async function POST(request: Request) {
     // query pinecone
     const therapist_file_name = therapist.id + '.txt'
     const memoryManager = await MemoryManager.getInstance()
-    // const records = await memoryManager.readLatestHistory(user.id)
-
-    // if (records.length === 0) {
-    //   await memoryManager.seedChatHistory(SEED, '\n\n', user.id)
-    // }
 
     await memoryManager.writeToHistory('User: ' + prompt + '\n', user.id)
     const recentChatHistory = await memoryManager.readLatestHistory(user.id)
@@ -118,7 +102,6 @@ export async function POST(request: Request) {
     const cleaned = resp.replaceAll(',', '')
     const chunks = cleaned.split('\n')
     const response = chunks[0]
-    console.log(chunks, response)
 
     await memoryManager.writeToHistory('' + response.trim(), user.id)
     var Readable = require('stream').Readable
