@@ -1,6 +1,6 @@
 # AI Therapist Conversation App
 
-This application provides a personalized mental wellness experiences using AI from a large language model (LLM). It's designed to offer emotional support and coping strategies through therapy conversations. You can share your thoughts and feelings confidentially and without worry, anytime you want. It gives you ideas to feel calmer and happier, and it's open all the time.
+This application provides a personalized mental wellness experience using AI from a large language model (LLM). It's designed to offer emotional support and coping strategies through empathetic conversations. You can share your thoughts and feelings confidentially and without worry, anytime you want, and get feedback in a seemingly conscientious and thoughtful manner. It gives you ideas to feel calmer and happier, and it's available 24/7.
 
 ## Demo
 
@@ -11,7 +11,7 @@ This application provides a personalized mental wellness experiences using AI fr
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Database**: [PlanetScale](https://planetscale.com/)
-- **Cache**: [Upstash](https://upstash.com/)
+- **Cache**: [Upstash w/ Redis](https://upstash.com/)
 - **Authentication**: [Clerk](https://clerk.com/)
 - **Deployment**: [Vercel](https://vercel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
