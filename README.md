@@ -12,6 +12,7 @@ This application provides a personalized mental wellness experience using AI fro
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Database**: [PlanetScale](https://planetscale.com/)
 - **Cache**: [Upstash w/ Redis](https://upstash.com/)
+- **ORM**: [Prisma](https://www.prisma.io/)
 - **Authentication**: [Clerk](https://clerk.com/)
 - **Deployment**: [Vercel](https://vercel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
@@ -33,4 +34,4 @@ $ npm run dev
 
 Create a .env file similar to .env.example with the required environment variables.
 
-The app will be run on [http://localhost:3000](http://localhost:3000).
+The app runs on [http://localhost:3000](http://localhost:3000).
