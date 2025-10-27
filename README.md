@@ -1,6 +1,6 @@
 # AI Therapist Conversation App
 
-This application provides a personalized mental wellness experience using AI from a large language model (LLM). It's designed to offer emotional support and coping strategies through empathetic conversations. You can share your thoughts and feelings confidentially and without worry, anytime you want, and get feedback in a seemingly conscientious and thoughtful manner. It gives you ideas to feel calmer and happier, and it's available 24/7.
+This application provides a personalized mental wellness experience using AI from a large language model (LLM). It's designed to offer emotional support and coping strategies through empathetic conversations. You can share your thoughts and feelings confidentially and without worry, anytime you want, and get feedback in a seemingly conscientious and thoughtful manner.
 
 ## Demo
 
