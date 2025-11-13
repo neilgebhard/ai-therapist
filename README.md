@@ -10,10 +10,10 @@ This application provides a personalized mental wellness experience using AI fro
 
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Database**: [PlanetScale](https://planetscale.com/)
+- **Database**: [Clever Cloud](https://www.clever.cloud/)
 - **Cache**: [Upstash w/ Redis](https://upstash.com/)
 - **ORM**: [Prisma](https://www.prisma.io/)
-- **Authentication**: [Clerk](https://clerk.com/)
+- **Auth**: [Clerk](https://clerk.com/)
 - **Deployment**: [Vercel](https://vercel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
