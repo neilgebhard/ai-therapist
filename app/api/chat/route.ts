@@ -97,7 +97,6 @@ export async function POST(request: Request) {
     })
 
     const response = (output as string[]).join('')
-    console.log(response)
 
     let s = new Readable()
     s.push(response)
@@ -123,7 +122,6 @@ export async function POST(request: Request) {
 
     return new StreamingTextResponse(s)
   } catch (error) {
-    console.log(error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }
