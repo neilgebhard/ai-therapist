@@ -1,17 +1,16 @@
 import dotenv from 'dotenv'
-import { StreamingTextResponse, LangChainStream } from 'ai'
+import { StreamingTextResponse } from 'ai'
 import { currentUser } from '@clerk/nextjs'
-import { Replicate } from 'langchain/llms/replicate'
-import { CallbackManager } from 'langchain/callbacks'
 import { NextResponse } from 'next/server'
 
 import { MemoryManager } from '@/lib/memory'
 import { rateLimit } from '@/lib/rate-limit'
 import { prisma } from '@/lib/db'
+import Replicate from 'replicate'
 
 dotenv.config({ path: `.env` })
 
-const INSTRUCTIONS = `You are a warm, compassionate personal therapist with excellent listening, observation skills, and good ethics. You have a PhD in psychology. You have a passion for helping patients with their mental health and problems.`
+const INSTRUCTIONS = `You are a personal therapist`
 
 export async function POST(request: Request) {
   try {
@@ -66,26 +65,11 @@ export async function POST(request: Request) {
     if (!!similarDocs && similarDocs.length !== 0) {
       relevantHistory = similarDocs.map((doc) => doc.pageContent).join('\n')
     }
-    const { handlers } = LangChainStream()
 
-    // Call Replicate for inference
-    const model = new Replicate({
-      model:
-        'a16z-infra/llama-2-13b-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5',
-      input: {
-        max_length: 2048,
-      },
-      apiKey: process.env.REPLICATE_API_TOKEN,
-      callbackManager: CallbackManager.fromHandlers(handlers),
-    })
+    // await memoryManager.writeToHistory('' + response.trim(), user.id)
+    var Readable = require('stream').Readable
 
-    // Turn verbose on for debugging
-    model.verbose = true
-
-    const resp = String(
-      await model
-        .call(
-          `
+    const context = `
         ONLY generate plain sentences without prefix of who is speaking.
 
         ${INSTRUCTIONS}
@@ -95,16 +79,25 @@ export async function POST(request: Request) {
         ${relevantHistory}
 
         ${recentChatHistory}\nYou:`
-        )
-        .catch(console.error)
-    )
 
-    const cleaned = resp.replaceAll(',', '')
-    const chunks = cleaned.split('\n')
-    const response = chunks[0]
+    const replicate = new Replicate({
+      auth: process.env.REPLICATE_API_TOKEN,
+    })
 
-    await memoryManager.writeToHistory('' + response.trim(), user.id)
-    var Readable = require('stream').Readable
+    const input = {
+      prompt: context,
+      messages: [],
+      verbosity: 'low',
+      image_input: [],
+      reasoning_effort: 'minimal',
+    }
+
+    const output = await replicate.run('openai/gpt-5-nano', {
+      input,
+    })
+
+    const response = (output as string[]).join('')
+    console.log(response)
 
     let s = new Readable()
     s.push(response)
@@ -130,6 +123,7 @@ export async function POST(request: Request) {
 
     return new StreamingTextResponse(s)
   } catch (error) {
+    console.log(error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 }

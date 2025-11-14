@@ -24,15 +24,7 @@ const ChatMessage = ({ role, content, isLoading }: ChatMessageProps) => {
         )}
       >
         {isLoading ? (
-          <>
-            <RiseLoader
-              size={7}
-              color={theme === 'light' ? 'black' : 'white'}
-            />
-            <p className='italic color'>
-              Hang tight… AI model can take a little while to spin up.
-            </p>
-          </>
+          <RiseLoader size={7} color={theme === 'light' ? 'black' : 'white'} />
         ) : (
           content
         )}
