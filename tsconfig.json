@@ -19,8 +19,11 @@
         "name": "next"
       }
     ],
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "replicateLatest": ["node_modules/replicateLatest"]
     }
   },
   "include": [

@@ -6,6 +6,7 @@ import { NextResponse } from 'next/server'
 import { MemoryManager } from '@/lib/memory'
 import { rateLimit } from '@/lib/rate-limit'
 import { prisma } from '@/lib/db'
+// import Replicate from 'replicateLatest'
 import Replicate from 'replicateLatest'
 
 dotenv.config({ path: `.env` })
