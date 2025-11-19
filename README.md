@@ -18,7 +18,6 @@ This application provides a personalized mental wellness experience using AI fro
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
 - **AI LLM**: [OpenAI's gpt-5-nano](https://replicate.com/openai/gpt-5-nano)
-- **LLM Orchestration**: [Langchain](https://js.langchain.com/docs/get_started/introduction/)
 
 ## Running Locally
 
