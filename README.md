@@ -1,35 +1,58 @@
-# AI Therapist Conversation App
+# AI Therapist 🧠
 
-This application provides a personalized mental wellness experience using AI from a large language model (LLM). It's designed to offer emotional support and coping strategies through empathetic conversations. You can share your thoughts and feelings confidentially and without worry, anytime you want, and get feedback in a seemingly conscientious and thoughtful manner.
+An AI-powered mental wellness application providing empathetic conversations and emotional support through OpenAI's GPT model.
 
-## Demo
+<img src="images/screenshot.png" width="400" />
 
-[https://ai-thera.vercel.app/](https://ai-thera.vercel.app/)
+**[View Live Demo](https://ai-thera.vercel.app/)**
 
-## Overview
+---
 
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Database**: [Clever Cloud w/ MySQL](https://www.clever.cloud/)
-- **Cache**: [Upstash w/ Redis](https://upstash.com/)
-- **ORM**: [Prisma](https://www.prisma.io/)
-- **Auth**: [Clerk](https://clerk.com/)
-- **Deployment**: [Vercel](https://vercel.com)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **AI LLM**: [OpenAI's gpt-5-nano](https://replicate.com/openai/gpt-5-nano)
+## Features
 
-## Running Locally
+- 💬 Real-time AI conversations with context-aware responses
+- 🔐 Secure authentication and private conversation history
+- ⚡ Redis caching for fast response times
+- 📱 Responsive, mobile-first design
 
-Clone GitHub repository, install the dependencies, and run the development server:
+## Tech Stack
+
+**Frontend:** Next.js 14, TypeScript, Tailwind CSS, shadcn/ui  
+**Backend:** MySQL (Clever Cloud), Redis (Upstash), Prisma ORM  
+**Auth:** Clerk  
+**AI:** OpenAI GPT API  
+**Deployment:** Vercel
+
+## Quick Start
 
 ```bash
-$ git clone https://github.com/neilgebhard/ai-therapist
-$ cd ai-therapist
-$ npm i
-$ npm run dev
+git clone https://github.com/neilgebhard/ai-therapist.git
+cd ai-therapist
+npm install
 ```
 
-Create a .env file similar to .env.example with the required environment variables.
+Create a `.env` file (use `.env.example` as template) with your API keys:
+```env
+DATABASE_URL="..."
+OPENAI_API_KEY="..."
+CLERK_SECRET_KEY="..."
+UPSTASH_REDIS_REST_URL="..."
+```
 
-The app runs on [http://localhost:3000](http://localhost:3000).
+Run the app:
+```bash
+npx prisma migrate dev
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+## Why I Built This
+
+To explore real-time AI integration, conversation context management, and secure authentication flows while creating a practical mental wellness tool.
+
+## Key Challenges Solved
+
+- Streaming AI responses in real-time with Next.js Server Actions
+- Implementing secure, private user conversations with authentication
+- Optimizing database queries with Redis caching
